@@ -1,0 +1,142 @@
+properties:
+    chartConfiguration: >-
+        >-
+                                            {
+                                                "toolbox": {
+                                                    "feature": {
+                                                        "dataZoom": {},
+                                                        "magicType": {
+                                                            "type": ["line", "bar", "stack"]
+                                                        },
+                                                        "saveAsImage": {}
+                                                    }   
+                                                },
+                                                "series": [
+                                                        { 
+                                                            "type": "line",
+                                                            "markLine": {
+                                                                "data": [
+                                                                    { "type": "max" },
+                                                                    { "type": "min" },
+                                                                    { "type": "average" }
+                                                                ]
+                                                            } 
+                                                        
+                                                        }
+                                                ]
+                                                
+                                                }
+datasets:
+    - uuid: resultados
+      url: https://raw.githubusercontent.com/jesuino/AAED2022/main/aula1Pratico/resultados.csv
+      cacheEnabled: true
+      columns:
+          - id: data
+            type: label
+          - id: n
+            type: label
+          - id: iterativo
+            type: number
+          - id: recursivo
+            type: number
+pages:
+    - rows:
+          - properties:
+              height: 400px
+            columns:
+                - span: "6"
+                  components:
+                      - settings:
+                            component: echarts
+                            external:
+                                width: 100%
+                                height: 400px
+                            echarts:
+                                series:
+                                    type: bar
+                                legend:
+                                    show: "true"
+                                    top: bottom
+                            chart:                                
+                                legend:
+                                    show: "true"
+                            lookup:
+                                uuid: resultados
+                                group:
+                                    - columnGroup:
+                                          source: n
+                                      functions:
+                                          - source: n
+                                          - source: iterativo
+                                            function: AVERAGE
+                                          - source: recursivo
+                                            function: AVERAGE
+                - span: "6"
+                  components:
+                      - settings:
+                            component: echarts
+                            external:
+                                width: 100%
+                                height: 400px
+                            echarts:
+                                option: >-
+                                            {
+                                                "toolbox": {
+                                                    "feature": {
+                                                        "dataZoom": {},
+                                                        "magicType": {
+                                                            "type": ["line", "bar", "stack"]
+                                                        },
+                                                        "saveAsImage": {}
+                                                    }   
+                                                },
+                                                "series": [
+                                                        { 
+                                                            "type": "line",
+                                                            "markLine": {
+                                                                "data": [
+                                                                    { "type": "max" },
+                                                                    { "type": "min" }
+
+                                                                ]
+                                                            } 
+                                                        
+                                                        },
+                                                        { 
+                                                            "type": "line",
+                                                            "markLine": {
+                                                                "data": [
+                                                                    { "type": "max" },
+                                                                    { "type": "min" }
+
+                                                                ]
+                                                            } 
+                                                        
+                                                        }
+                                                ]
+                                                
+                                                }
+                                series:
+                                    type: line
+                                legend:
+                                    show: "true"
+                                    top: bottom
+                            lookup:
+                                uuid: resultados
+                                group:
+                                    - columnGroup:
+                                          source: data
+                                      functions:
+                                          - source: data
+                                          - source: iterativo
+                                            function: AVERAGE
+                                          - source: recursivo
+                                            function: AVERAGE
+          - columns:
+                - components:
+                      - settings:
+                            component: table
+                            external:
+                                width: 100%
+                            lookup:
+                                uuid: resultados
